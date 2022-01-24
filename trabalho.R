@@ -87,18 +87,29 @@ cor(peso,distancia)^2  # r^2 = 0.9550963  (95,50% da variancia de y e explicada 
 
 
 #exercicio
+#calculo de proporcoes
 dbinom(8, 19, 0.49) #P(M=8 em 19, 0.49) = 15.25% (a amostra pode n ser representativa)
 
 #t-test a media populacional
-t.test(ord_inic, 
+t.test(peso, 
        alternative="two.sided",
-       mu=1000, #media do ordenado
-       conf.level=0.95) #nivel de confianca #df(grau de liberdade) #pvalue(valor de erro) #interval: ....(1quantil, 2quantil) #como 1000 esta fora de 1000(mean of x)..., entao esta errado
+       mu=1703, #media do peso
+       conf.level=0.95) #nivel de confianca(nivel de significancia(100-95=5%) #df(grau de liberdade) #pvalue(valor de erro) #interval: ....(1quantil, 2quantil) #como 1703 esta fora de 1702.619(mean of x)..., entao esta errado
 
 
-t.test(ord_atual, 
+t.test(distancia, 
        alternative="two.sided",
-       mu=1000, #media do ordenado
-       conf.level=0.95) #nivel de confianca
+       mu=184.8, #media da distancia
+       conf.level=0.95) #nivel de confianca #df(grau de liberdade) #pvalue(valor de erro) #interval: ....(1quantil, 2quantil) #como 184.8 esta fora de 184.8048(mean of x)..., entao esta errado
 
+
+
+#compare medias entre grupos
+boxplot(distancia ~ condutor, main = "Comparacao da distancia por condutor", ylab="ordenado em kms", xlab="", names=c("condutor A","condutor B"),col=c("pink","blue"))
+tapply(distancia,condutor,summary)# Para interpretar os valores do boxplot (qt + proximo a media e a mediana estao, mais normais estao (assimetria))
+
+t.test(distancia ~ condutor,
+       alternative="two.sided", 
+       conf.level=0.95) #p-value < nivel significancia, ou seja, rejeitamos hipotese nula
+                        #a diferenca entre as medias na populacao e positiva, entao e o grupo 0 (condutor A) com maior distancia
 
