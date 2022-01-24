@@ -40,7 +40,7 @@
  
   nomes_c<-c("Condutor A", "Condutor B") #legendas
   cores<-c("purple","skyblue") #cores do grafico
-  rotulo<-paste(nomes_c,"(",paste(f_g),")",sep=" ") #dados (legendas, n� elementos)
+  rotulo<-paste(nomes_c,"(",paste(f_g),")",sep=" ") #dados (legendas, n. elementos)
   pie(f_g, main="Numero de testes por condutor",labels=rotulo,col=cores) #grafico circular
  
  #Graficos de barras
@@ -48,7 +48,7 @@
   #barplot(f_g, main="Numero de Individuos por tipo de condutor", col="skyblue") 
   
   #Grafico de barras Numero de Testes por condutor
-  barplot(f_g,main="Numero de Testes por condutor",xlab="Condutor", names.arg = c("A","B") ,ylab="N� de Testes",col=c("purple","skyblue"), ylim=c(0,21), xlim=c(0,4)) #ylim(limites de y) #fr de cada condutor
+  barplot(f_g,main="Numero de Testes por condutor",xlab="Condutor", names.arg = c("A","B") ,ylab="N. de Testes",col=c("purple","skyblue"), ylim=c(0,21), xlim=c(0,4)) #ylim(limites de y) #fr de cada condutor
   legend("topright", legend = c("Condutor A", "Condutor B"), fill = c("purple","skyblue"), bty = "n")
   text(locator(n=2), paste(round(f_g,2)))
   
@@ -64,14 +64,14 @@
  #histograma
   
   #Numero de testes por Peso
-  hp=hist(peso, main="Numero de Testes por Peso", xlab="Peso (Kg)",ylab="Nº de Testes",col = "skyblue", ylim = c(0,8))
+  hp=hist(peso, main="Numero de Testes por Peso", xlab="Peso (Kg)",ylab="N. de Testes",col = "skyblue", ylim = c(0,8))
   legend("topright", legend = c("Testes por Peso"), fill = c("skyblue"), bty = "n")
   summary(peso)  
   freq_abs=hp$counts
   text(locator(6), paste(round(freq_abs)))
  
   #Numero de testes por Distancia
-  hd=hist(distancia,main="Numero de Testes por Distancia", xlab="Distancia (Km)",ylab="Nº de Testes",col = "skyblue", ylim = c(0,10))
+  hd=hist(distancia,main="Numero de Testes por Distancia", xlab="Distancia (Km)",ylab="N. de Testes",col = "skyblue", ylim = c(0,10))
   legend("topright", legend = c("Testes por Distancia"), fill = c("skyblue"), bty = "n")
   summary(distancia)
   freq_rel=hd$counts
@@ -84,34 +84,34 @@
   summary(peso) 
   
   #double boxplot peso
-  boxplot(peso ~ condutor, main = "Comparação do Peso por condutor", ylab="Peso em Kg", xlab="", names=c("A","B"),col=c("pink","blue"))
+  boxplot(peso ~ condutor, main = "Comparaçao do Peso por condutor", ylab="Peso em Kg", xlab="", names=c("A","B"),col=c("pink","blue"))
   
   
   #segundo esta amostra o genero feminino tem o ordenado atual menor que dos homens
-  IQR(peso) #d� intervalo interquartil (no ordenado atual, a diferen�a entre o 1 qartil e o 3 quartil s�o 798.85)
-  tapply(peso,condutor,summary)# Para interpretar os valores do boxplot (qt + proximo a media e a mediana est�o, mais normais est�o (assimetria); o min da mulher � menos de metade do min do homem; 1 quartil e 3 quartil(50%);)
+  IQR(peso) #da intervalo interquartil (no ordenado atual, a diferenca entre o 1 qartil e o 3 quartil sao 798.85)
+  tapply(peso,condutor,summary)# Para interpretar os valores do boxplot (qt + proximo a media e a mediana estao, mais normais estao (assimetria); o min da mulher e menos de metade do min do homem; 1 quartil e 3 quartil(50%);)
   
   #double boxplot distancia
-  boxplot(distancia ~ condutor, main = "Comparação do ordenado atual por genero", ylab="ordenado em euros", xlab="", names=c("A","B"),col=c("pink","blue"))
+  boxplot(distancia ~ condutor, main = "Comparaçao do ordenado atual por genero", ylab="ordenado em euros", xlab="", names=c("A","B"),col=c("pink","blue"))
   #segundo esta amostra o genero feminino tem o ordenado atual menor que dos homens
-  IQR(distancia) #d� intervalo interquartil (no ordenado atual, a diferen�a entre o 1 qartil e o 3 quartil s�o 798.85)
-  tapply(distancia,condutor,summary)# Para interpretar os valores do boxplot (qt + proximo a media e a mediana est�o, mais normais est�o (assimetria); o min da mulher � menos de metade do min do homem; 1 quartil e 3 quartil(50%);)
+  IQR(distancia) #da intervalo interquartil (no ordenado atual, a diferenca entre o 1 qartil e o 3 quartil sao 798.85)
+  tapply(distancia,condutor,summary)# Para interpretar os valores do boxplot (qt + proximo a media e a mediana estao, mais normais estao (assimetria); o min da mulher e menos de metade do min do homem; 1 quartil e 3 quartil(50%);)
   
   
-  ###### Estat�stica INDUTIVA    
-  # PREVIS�O: Regress�o linear entre ord_inic e ord_atual
+  ###### Estatistica INDUTIVA    
+  # PREVISAO: Regressao linear entre ord_inic e ord_atual
   plot(distancia, peso, pch = 1, cex = 1.3, col = "blue", main = "actual vs inicial", xlab = "inicial", ylab = "atual")
-  # relacao da var da ord_inic e ord_atual � (se existe correla��o forte ou fraca)
-  # existe uma rela��o de correla��o forte e positiva entre as vari�veis "ord_inic" e "ord_atual"
-  cor(peso, distancia) # r= 0.9658736 , est� muito pr�ximo de 1 por isso existe uma correla��o forte e positiva
+  # relacao da var da ord_inic e ord_atual (se existe correlacao forte ou fraca)
+  # existe uma relacao de correlacao forte e positiva entre as variaveis "ord_inic" e "ord_atual"
+  cor(peso, distancia) # r= 0.9658736 , esta muito proximo de 1 por isso existe uma correlacao forte e positiva
   cor(peso, distancia)^2
   
   model = lm(distancia ~ peso) #linear simples #dependente~independente
   model #ver modelo;ord_atual=384.978+1.035*ord_inicial
   
-  abline(model, col="red") #desenhar a reta de regress�o linear simples #intercept(ordenada da origem); se o ord_inic se fosse nulo(zero), o ord_atual � de 384??? #ord_inic()
-  summary(model) # sum�rio com as estimativas dos coeficientes, p-value e r-quadrado 
-  #intercept(se o modelo pode ou n ser anulado; tvalue; pvalue(rejeitar ou n rejeitar dependendo do valor de alpha; se for menor rejeita-se a hipotese nula; o intercept(=0.00136) tem um significado pq � diferente de zero))
+  abline(model, col="red") #desenhar a reta de regressao linear simples #intercept(ordenada da origem); se o ord_inic se fosse nulo(zero), o ord_atual e de 384??? #ord_inic()
+  summary(model) # sumario com as estimativas dos coeficientes, p-value e r-quadrado 
+  #intercept(se o modelo pode ou n ser anulado; tvalue; pvalue(rejeitar ou n rejeitar dependendo do valor de alpha; se for menor rejeita-se a hipotese nula; o intercept(=0.00136) tem um significado pq e diferente de zero))
   #ord_inic(se for menor(=0.00000000000209) rejeita-se a hipotese nula)
   
   
