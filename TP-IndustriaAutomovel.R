@@ -42,6 +42,9 @@
   cores<-c("purple","skyblue") #cores do grafico
   rotulo<-paste(nomes_c,"(",paste(f_g),")",sep=" ") #dados (legendas, n. elementos)
   pie(f_g, main="Numero de testes por condutor",labels=rotulo,col=cores) #grafico circular
+  
+  #Gráfico circular 3D
+  pie3D(f_g,explode = 0.05,main="Numero de testes por condutor",labels=rotulo,col=cores, labelcex = 1.1) #grafico circular
  
  #Graficos de barras
   
@@ -64,7 +67,7 @@
  #histograma
   
   #Numero de testes por Peso
-  hp=hist(peso, main="Numero de Testes por Peso", xlab="Peso (Kg)",ylab="N. de Testes",col = "skyblue", ylim = c(0,8))
+  hp=hist(peso, main="Numero de Testes por Peso", xlab="Peso (Kg)",ylab="N. de Testes" ,col = "skyblue", ylim = c(0,8))
   legend("topright", legend = c("Testes por Peso"), fill = c("skyblue"), bty = "n")
   summary(peso)  
   freq_abs=hp$counts
@@ -83,8 +86,11 @@
   boxplot(peso)
   summary(peso) 
   
-  #double boxplot peso
-  boxplot(peso ~ condutor, main = "ComparaÃ§ao do Peso por condutor", ylab="Peso em Kg", xlab="", names=c("A","B"),col=c("pink","blue"))
+  #double boxplot peso Vertical
+  boxplot(peso ~ condutor, main = "Comparacao do Peso do veiculo por condutor", ylab="Peso (Kg)", xlab="Condutor", names=c("A","B"),col=c("purple","skyblue"))
+  
+  #double boxplot peso Horizontal
+  boxplot(peso ~ condutor, horizontal = TRUE, main = "Comparacao do Peso do veiculo por condutor", ylab="Peso (Kg)", xlab="Condutor", names=c("A","B"),col=c("purple","skyblue"))
   
   
   #segundo esta amostra o genero feminino tem o ordenado atual menor que dos homens
@@ -100,7 +106,7 @@
   
   ###### Estatistica INDUTIVA    
   # PREVISAO: Regressao linear entre ord_inic e ord_atual
-  plot(distancia, peso, pch = 1, cex = 1.3, col = "blue", main = "actual vs inicial", xlab = "inicial", ylab = "atual")
+  plot(peso, distancia, pch = 20, col = "purple", main = "Distancia vs Peso", xlab = "Peso", ylab = "Distancia")
   # relacao da var da ord_inic e ord_atual (se existe correlacao forte ou fraca)
   # existe uma relacao de correlacao forte e positiva entre as variaveis "ord_inic" e "ord_atual"
   cor(peso, distancia) # r= 0.9658736 , esta muito proximo de 1 por isso existe uma correlacao forte e positiva
