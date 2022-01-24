@@ -90,8 +90,10 @@ cor(peso,distancia)^2  # r^2 = 0.9550963  (95,50% da variancia de y e explicada 
 #calculo de proporcoes
 dbinom(8, 19, 0.49) #P(M=8 em 19, 0.49) = 15.25% (a amostra pode n ser representativa)
 
+
 #teste a normalidade
-shapiro.test(peso) #
+shapiro.test(peso) #w(estatistica de teste) #como p-value(0.6065) > 0.05, nao rejeita
+
 
 #t-test a media populacional
 t.test(peso, 
@@ -124,7 +126,7 @@ plot(peso, distancia, pch = 1, cex = 1.3, col = "blue", main = "peso vs distanci
 cor(peso,distancia) # r= -0.9772903
 
 model = lm(distancia ~ peso) #linear simples #dependente~independente
-model #ver modelo;peso=3253.986+-8.395*distancia
+model #ver modelo;peso=378.5198+-0.1138*distancia
 abline(model, col="red") #desenhar a reta de regressao linear simples #intercept(ordenada da origem); a distancia vai depender do peso do automovel e do condutor
 summary(model) # sumario com as estimativas dos coeficientes, p-value e r-quadrado
 #intercept e peso tem o p-value muito proximo de zero
@@ -132,3 +134,13 @@ summary(model) # sumario com as estimativas dos coeficientes, p-value e r-quadra
 
 cor(peso,distancia)^2  # r^2 = 0.9550963  (95,50% da variancia de y e explicada pela variancia de x)
 
+
+summary(model)
+shapiro.test(model$residuals)
+t.test(model$residuals, 
+       alternative="two.sided",
+       mu=0,
+       conf.level=0.95) #pvalue e maior que nivel de significancia, ou seja, nao rejeito h0
+
+
+378.5198+-0.1138*2000 #se a peso for 2000kg, entao a distancia e 150.9198km
