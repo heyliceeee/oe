@@ -33,6 +33,8 @@
  fr_g<-prop.table(f_g)
  fr_g
  
+  # -------------------------------------------------------------------------------------------- #
+ 
  # RepresentaÃ§oes graficas
 
  #Grafico circular
@@ -45,7 +47,9 @@
   
   #Gráfico circular 3D
   pie3D(f_g,explode = 0.05,main="Numero de testes por condutor",labels=rotulo,col=cores, labelcex = 1.1) #grafico circular
- 
+
+  # -------------------------------------------------------------------------------------------- #
+  
  #Graficos de barras
   
   #barplot(f_g, main="Numero de Individuos por tipo de condutor", col="skyblue") 
@@ -63,6 +67,7 @@
   
   #prop.table(f_g)
   
+  # -------------------------------------------------------------------------------------------- #
   
  #histograma
   
@@ -80,21 +85,24 @@
   freq_rel=hd$counts
   text(locator(n=7), paste(round(freq_rel)))
   
+  # -------------------------------------------------------------------------------------------- #
   
  #boxplots
   
-  boxplot(peso)
-  summary(peso) 
+  #Boxplot Peso + Dif Inter-quartis
+  boxplot(peso, main = "Distribuicao do Peso", ylab="Peso (Kg)",col=c("mediumspringgreen"))
+    summary(peso) 
+  IQR(peso) #da intervalo interquartil (no peso, a diferenca entre o 1 qartil e o 3 quartil sao 367)
   
-  #double boxplot peso Vertical
-  boxplot(peso ~ condutor, main = "Comparacao do Peso do veiculo por condutor", ylab="Peso (Kg)", xlab="Condutor", names=c("A","B"),col=c("purple","skyblue"))
+  #Boxplot Distancia + Dif Inter-quartis
+  boxplot(distancia, main = "Distribuicao da distancia", ylab="Distancia (Km)",col=c("lightgoldenrod1"))
+  summary(distancia) 
+  IQR(distancia) #da intervalo interquartil (na distancia, a diferenca entre o 1 qartil e o 3 quartil sao 37.4)
   
-  #double boxplot peso Horizontal
-  boxplot(peso ~ condutor, horizontal = TRUE, main = "Comparacao do Peso do veiculo por condutor", ylab="Peso (Kg)", xlab="Condutor", names=c("A","B"),col=c("purple","skyblue"))
+  #Boxplot Peso por condutor + Summary
+  boxplot(peso ~ condutor ,main = "Comparacao do Peso do veiculo por condutor", ylab="Peso (Kg)", xlab="Condutor", names=c("A","B"),col=c("purple","skyblue"), xlim=c(0,4))
+  legend("topright", legend = c("Condutor A","Condutor B"), fill = c("purple","skyblue"), bty = "n")
   
-  
-  #segundo esta amostra o genero feminino tem o ordenado atual menor que dos homens
-  IQR(peso) #da intervalo interquartil (no ordenado atual, a diferenca entre o 1 qartil e o 3 quartil sao 798.85)
   tapply(peso,condutor,summary)# Para interpretar os valores do boxplot (qt + proximo a media e a mediana estao, mais normais estao (assimetria); o min da mulher e menos de metade do min do homem; 1 quartil e 3 quartil(50%);)
   
   #double boxplot distancia
@@ -103,10 +111,12 @@
   IQR(distancia) #da intervalo interquartil (no ordenado atual, a diferenca entre o 1 qartil e o 3 quartil sao 798.85)
   tapply(distancia,condutor,summary)# Para interpretar os valores do boxplot (qt + proximo a media e a mediana estao, mais normais estao (assimetria); o min da mulher e menos de metade do min do homem; 1 quartil e 3 quartil(50%);)
   
+  # -------------------------------------------------------------------------------------------- #
   
   ###### Estatistica INDUTIVA    
   # PREVISAO: Regressao linear entre ord_inic e ord_atual
-  plot(peso, distancia, pch = 20, col = "purple", main = "Distancia vs Peso", xlab = "Peso", ylab = "Distancia")
+  
+  plot(peso, distancia, pch = 19, col = "lightslateblue", main = "Distancia vs Peso", xlab = "Peso", ylab = "Distancia")
   # relacao da var da ord_inic e ord_atual (se existe correlacao forte ou fraca)
   # existe uma relacao de correlacao forte e positiva entre as variaveis "ord_inic" e "ord_atual"
   cor(peso, distancia) # r= 0.9658736 , esta muito proximo de 1 por isso existe uma correlacao forte e positiva
@@ -115,7 +125,7 @@
   model = lm(distancia ~ peso) #linear simples #dependente~independente
   model #ver modelo;ord_atual=384.978+1.035*ord_inicial
   
-  abline(model, col="red") #desenhar a reta de regressao linear simples #intercept(ordenada da origem); se o ord_inic se fosse nulo(zero), o ord_atual e de 384??? #ord_inic()
+  abline(model, col="red3") #desenhar a reta de regressao linear simples #intercept(ordenada da origem); se o ord_inic se fosse nulo(zero), o ord_atual e de 384??? #ord_inic()
   summary(model) # sumario com as estimativas dos coeficientes, p-value e r-quadrado 
   #intercept(se o modelo pode ou n ser anulado; tvalue; pvalue(rejeitar ou n rejeitar dependendo do valor de alpha; se for menor rejeita-se a hipotese nula; o intercept(=0.00136) tem um significado pq e diferente de zero))
   #ord_inic(se for menor(=0.00000000000209) rejeita-se a hipotese nula)
