@@ -90,6 +90,9 @@ cor(peso,distancia)^2  # r^2 = 0.9550963  (95,50% da variancia de y e explicada 
 #calculo de proporcoes
 dbinom(8, 19, 0.49) #P(M=8 em 19, 0.49) = 15.25% (a amostra pode n ser representativa)
 
+#teste a normalidade
+shapiro.test(peso) #
+
 #t-test a media populacional
 t.test(peso, 
        alternative="two.sided",
@@ -112,4 +115,20 @@ t.test(distancia ~ condutor,
        alternative="two.sided", 
        conf.level=0.95) #p-value < nivel significancia, ou seja, rejeitamos hipotese nula
                         #a diferenca entre as medias na populacao e positiva, entao e o grupo 0 (condutor A) com maior distancia
+
+
+#duas continuas: regressao linear simples
+
+plot(peso, distancia, pch = 1, cex = 1.3, col = "blue", main = "peso vs distancia", xlab = "peso", ylab = "distancia")
+
+cor(peso,distancia) # r= -0.9772903
+
+model = lm(distancia ~ peso) #linear simples #dependente~independente
+model #ver modelo;peso=3253.986+-8.395*distancia
+abline(model, col="red") #desenhar a reta de regressao linear simples #intercept(ordenada da origem); a distancia vai depender do peso do automovel e do condutor
+summary(model) # sumario com as estimativas dos coeficientes, p-value e r-quadrado
+#intercept e peso tem o p-value muito proximo de zero
+#f-statistic: p-value muito pequeno entao rejeita-se h0
+
+cor(peso,distancia)^2  # r^2 = 0.9550963  (95,50% da variancia de y e explicada pela variancia de x)
 
