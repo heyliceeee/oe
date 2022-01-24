@@ -17,10 +17,14 @@
  
  tabela=cbind(teste, condutor, peso, distancia) 
  
+ tabelaPD=cbind(peso, distancia)
+ 
  table(teste) #continua
  table(condutor) #var Nominal - Grupos
  table(peso) #continua
  table(distancia) #continua
+ 
+ summary(tabelaPD)
  
  # distancia + peso -> continuas -> podem ser usadas em graficos de estremos e quartis e histogramas
  # condutor -> nominal -> grafico circular ou barras 
@@ -114,21 +118,29 @@
   # -------------------------------------------------------------------------------------------- #
   
   ###### Estatistica INDUTIVA    
-  # PREVISAO: Regressao linear entre ord_inic e ord_atual
+  # PREVISAO: Regressao linear entre peso e distancia
   
-  plot(peso, distancia, pch = 19, col = "lightslateblue", main = "Distancia vs Peso", xlab = "Peso", ylab = "Distancia")
-  # relacao da var da ord_inic e ord_atual (se existe correlacao forte ou fraca)
-  # existe uma relacao de correlacao forte e positiva entre as variaveis "ord_inic" e "ord_atual"
-  cor(peso, distancia) # r= 0.9658736 , esta muito proximo de 1 por isso existe uma correlacao forte e positiva
+  plot(peso,distancia , pch = 19, col = "lightslateblue", main = "Distancia vs Peso", xlab = "Peso", ylab = "Distancia")
+  # relacao da var do peso e distancia (se existe correlacao forte ou fraca)
+  # existe uma relacao de correlacao forte e positiva entre as variaveis "peso" e "distancia"
+  cor(peso, distancia) # r= -0.9772903 , esta muito proximo de -1 por isso existe uma correlacao forte e negativa
   cor(peso, distancia)^2
   
-  model = lm(distancia ~ peso) #linear simples #dependente~independente
-  model #ver modelo;ord_atual=384.978+1.035*ord_inicial
+  model = lm(distancia ~ peso) #linear simples #dependente~independente # dependente - Y | Independente - X
+  model #ver modelo;distancia=378.5198-0.1138*peso
   
-  abline(model, col="red3") #desenhar a reta de regressao linear simples #intercept(ordenada da origem); se o ord_inic se fosse nulo(zero), o ord_atual e de 384??? #ord_inic()
+  abline(model, col="red") #desenhar a reta de regressao linear simples #intercept(ordenada da origem); se o peso se fosse nulo(zero), a distancia e de 378??? #peso()
   summary(model) # sumario com as estimativas dos coeficientes, p-value e r-quadrado 
   #intercept(se o modelo pode ou n ser anulado; tvalue; pvalue(rejeitar ou n rejeitar dependendo do valor de alpha; se for menor rejeita-se a hipotese nula; o intercept(=0.00136) tem um significado pq e diferente de zero))
-  #ord_inic(se for menor(=0.00000000000209) rejeita-se a hipotese nula)
+  #peso(se for menor(=0.00000000000209) rejeita-se a hipotese nula)
+  
+  #Residuals -> Erros Distancia de cada um dos pontos à reta
+  
+  #Coeficientes -> beta 0 378 Beta 1 -0.11378 * peso
+  
+  #estrelas -> tem a ver com os erros 
+  
+  #
   
   
   
