@@ -33,26 +33,26 @@
  fr_g<-prop.table(f_g)
  fr_g
  
- # Representações gráficas
+ # RepresentaÃ§oes graficas
 
  #Grafico circular
  pie(f_g)
  
   nomes_c<-c("Condutor A", "Condutor B") #legendas
-  cores<-c("purple","skyblue") #cores do gráfico
-  rotulo<-paste(nomes_c,"(",paste(f_g),")",sep=" ") #dados (legendas, nº elementos)
-  pie(f_g, main="Número de testes por condutor",labels=rotulo,col=cores) #grafico circular
+  cores<-c("purple","skyblue") #cores do grafico
+  rotulo<-paste(nomes_c,"(",paste(f_g),")",sep=" ") #dados (legendas, nï¿½ elementos)
+  pie(f_g, main="Numero de testes por condutor",labels=rotulo,col=cores) #grafico circular
  
  #Graficos de barras
   
-  #barplot(f_g, main="Número de Indivíduos por tipo de condutor", col="skyblue") 
+  #barplot(f_g, main="Numero de Individuos por tipo de condutor", col="skyblue") 
   
-  #Gráfico de barras Número de Testes por condutor
-  barplot(f_g,main="Número de Testes por condutor",xlab="Condutor", names.arg = c("A","B") ,ylab="Nº de Testes",col=c("purple","skyblue"), ylim=c(0,21), xlim=c(0,4)) #ylim(limites de y) #fr de cada condutor
+  #Grafico de barras Numero de Testes por condutor
+  barplot(f_g,main="Numero de Testes por condutor",xlab="Condutor", names.arg = c("A","B") ,ylab="Nï¿½ de Testes",col=c("purple","skyblue"), ylim=c(0,21), xlim=c(0,4)) #ylim(limites de y) #fr de cada condutor
   legend("topright", legend = c("Condutor A", "Condutor B"), fill = c("purple","skyblue"), bty = "n")
   text(locator(n=2), paste(round(f_g,2)))
   
-  #Gráfico de barras Percentagem de Testes por condutor
+  #Grafico de barras Percentagem de Testes por condutor
   barplot(fr_g,main="Pertagem de Testes por condutor",xlab="Condutor",ylab="Percentagem de Testes", names.arg = c("A","B"), col=c("purple","skyblue"), ylim=c(0,1), xlim=c(0,4)) #ylim(limites de y) #fr de cada condutor
   legend("topright", legend = c("Condutor A", "Condutor B"), fill = c("purple","skyblue"), bty = "n")
   text(locator(n=2), paste(round(fr_g,2)))
@@ -63,15 +63,15 @@
   
  #histograma
   
-  #Número de testes por Peso
-  hp=hist(peso, main="Número de Testes por Peso", xlab="Peso (Kg)",ylab="Nº de Testes",col = "skyblue", ylim = c(0,8))
+  #Numero de testes por Peso
+  hp=hist(peso, main="Numero de Testes por Peso", xlab="Peso (Kg)",ylab="NÂº de Testes",col = "skyblue", ylim = c(0,8))
   legend("topright", legend = c("Testes por Peso"), fill = c("skyblue"), bty = "n")
   summary(peso)  
   freq_abs=hp$counts
   text(locator(6), paste(round(freq_abs)))
  
-  #Número de testes por Distancia
-  hd=hist(distancia,main="Número de Testes por Distancia", xlab="Distancia (Km)",ylab="Nº de Testes",col = "skyblue", ylim = c(0,10))
+  #Numero de testes por Distancia
+  hd=hist(distancia,main="Numero de Testes por Distancia", xlab="Distancia (Km)",ylab="NÂº de Testes",col = "skyblue", ylim = c(0,10))
   legend("topright", legend = c("Testes por Distancia"), fill = c("skyblue"), bty = "n")
   summary(distancia)
   freq_rel=hd$counts
@@ -84,34 +84,34 @@
   summary(peso) 
   
   #double boxplot peso
-  boxplot(peso ~ condutor, main = "Comparação do Peso por condutor", ylab="Peso em Kg", xlab="", names=c("A","B"),col=c("pink","blue"))
+  boxplot(peso ~ condutor, main = "ComparaÃ§Ã£o do Peso por condutor", ylab="Peso em Kg", xlab="", names=c("A","B"),col=c("pink","blue"))
   
   
   #segundo esta amostra o genero feminino tem o ordenado atual menor que dos homens
-  IQR(peso) #dá intervalo interquartil (no ordenado atual, a diferença entre o 1 qartil e o 3 quartil são 798.85)
-  tapply(peso,condutor,summary)# Para interpretar os valores do boxplot (qt + proximo a media e a mediana estão, mais normais estão (assimetria); o min da mulher é menos de metade do min do homem; 1 quartil e 3 quartil(50%);)
+  IQR(peso) #dï¿½ intervalo interquartil (no ordenado atual, a diferenï¿½a entre o 1 qartil e o 3 quartil sï¿½o 798.85)
+  tapply(peso,condutor,summary)# Para interpretar os valores do boxplot (qt + proximo a media e a mediana estï¿½o, mais normais estï¿½o (assimetria); o min da mulher ï¿½ menos de metade do min do homem; 1 quartil e 3 quartil(50%);)
   
   #double boxplot distancia
-  boxplot(distancia ~ condutor, main = "Comparação do ordenado atual por genero", ylab="ordenado em euros", xlab="", names=c("A","B"),col=c("pink","blue"))
+  boxplot(distancia ~ condutor, main = "ComparaÃ§Ã£o do ordenado atual por genero", ylab="ordenado em euros", xlab="", names=c("A","B"),col=c("pink","blue"))
   #segundo esta amostra o genero feminino tem o ordenado atual menor que dos homens
-  IQR(distancia) #dá intervalo interquartil (no ordenado atual, a diferença entre o 1 qartil e o 3 quartil são 798.85)
-  tapply(distancia,condutor,summary)# Para interpretar os valores do boxplot (qt + proximo a media e a mediana estão, mais normais estão (assimetria); o min da mulher é menos de metade do min do homem; 1 quartil e 3 quartil(50%);)
+  IQR(distancia) #dï¿½ intervalo interquartil (no ordenado atual, a diferenï¿½a entre o 1 qartil e o 3 quartil sï¿½o 798.85)
+  tapply(distancia,condutor,summary)# Para interpretar os valores do boxplot (qt + proximo a media e a mediana estï¿½o, mais normais estï¿½o (assimetria); o min da mulher ï¿½ menos de metade do min do homem; 1 quartil e 3 quartil(50%);)
   
   
-  ###### Estatística INDUTIVA    
-  # PREVISÃO: Regressão linear entre ord_inic e ord_atual
+  ###### Estatï¿½stica INDUTIVA    
+  # PREVISï¿½O: Regressï¿½o linear entre ord_inic e ord_atual
   plot(distancia, peso, pch = 1, cex = 1.3, col = "blue", main = "actual vs inicial", xlab = "inicial", ylab = "atual")
-  # relacao da var da ord_inic e ord_atual é (se existe correlação forte ou fraca)
-  # existe uma relação de correlação forte e positiva entre as variáveis "ord_inic" e "ord_atual"
-  cor(peso, distancia) # r= 0.9658736 , está muito próximo de 1 por isso existe uma correlação forte e positiva
+  # relacao da var da ord_inic e ord_atual ï¿½ (se existe correlaï¿½ï¿½o forte ou fraca)
+  # existe uma relaï¿½ï¿½o de correlaï¿½ï¿½o forte e positiva entre as variï¿½veis "ord_inic" e "ord_atual"
+  cor(peso, distancia) # r= 0.9658736 , estï¿½ muito prï¿½ximo de 1 por isso existe uma correlaï¿½ï¿½o forte e positiva
   cor(peso, distancia)^2
   
   model = lm(distancia ~ peso) #linear simples #dependente~independente
   model #ver modelo;ord_atual=384.978+1.035*ord_inicial
   
-  abline(model, col="red") #desenhar a reta de regressão linear simples #intercept(ordenada da origem); se o ord_inic se fosse nulo(zero), o ord_atual é de 384??? #ord_inic()
-  summary(model) # sumário com as estimativas dos coeficientes, p-value e r-quadrado 
-  #intercept(se o modelo pode ou n ser anulado; tvalue; pvalue(rejeitar ou n rejeitar dependendo do valor de alpha; se for menor rejeita-se a hipotese nula; o intercept(=0.00136) tem um significado pq é diferente de zero))
+  abline(model, col="red") #desenhar a reta de regressï¿½o linear simples #intercept(ordenada da origem); se o ord_inic se fosse nulo(zero), o ord_atual ï¿½ de 384??? #ord_inic()
+  summary(model) # sumï¿½rio com as estimativas dos coeficientes, p-value e r-quadrado 
+  #intercept(se o modelo pode ou n ser anulado; tvalue; pvalue(rejeitar ou n rejeitar dependendo do valor de alpha; se for menor rejeita-se a hipotese nula; o intercept(=0.00136) tem um significado pq ï¿½ diferente de zero))
   #ord_inic(se for menor(=0.00000000000209) rejeita-se a hipotese nula)
   
   
