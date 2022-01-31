@@ -136,39 +136,49 @@ library(plotrix)
   IQR(distancia) #da intervalo interquartil (na distancia, a diferenca entre o 1 qartil e o 3 quartil sao 37.4)
   
   #Boxplot Peso por condutor + Summary
-  boxplot(peso ~ condutor ,main = "Comparacao do Peso do veiculo por condutor", ylab="Peso (Kg)", xlab="Condutor", names=c("A","B"),col=c("purple","skyblue"), xlim=c(0,4))
+  boxplot(peso ~ condutor ,main = "Comparacao do Peso do veiculo por condutor", ylab="Peso (Kg)", xlab="Condutor", names=c("A","B"),
+  col=c("purple","skyblue"), xlim=c(0,4))
   legend("topright", legend = c("Condutor A","Condutor B"), fill = c("purple","skyblue"), bty = "n")
   
   tapply(peso,condutor,summary)# Para interpretar os valores do boxplot (qt + proximo a media e a mediana estao, mais normais estao (assimetria); o min da mulher e menos de metade do min do homem; 1 quartil e 3 quartil(50%);)
   
   #double boxplot distancia
-  boxplot(distancia ~ condutor, main = "Comparacao da Distancia por condutor", ylab="Distancia (Km)", xlab="Condutor", names=c("A","B"),col=c("purple","skyblue"))
+  boxplot(distancia ~ condutor, main = "Comparacao da Distancia por condutor", ylab="Distancia (Km)", xlab="Condutor", names=c("A","B"),
+  col=c("purple","skyblue"))
   #segundo esta amostra o genero feminino tem o ordenado atual menor que dos homens
   legend("topright", legend = c("Condutor A","Condutor B"), fill = c("purple","skyblue"), bty = "n")
   IQR(distancia) #da intervalo interquartil (no ordenado atual, a diferenca entre o 1 qartil e o 3 quartil sao 798.85)
-  tapply(distancia,condutor,summary)# Para interpretar os valores do boxplot (qt + proximo a media e a mediana estao, mais normais estao (assimetria); o min da mulher e menos de metade do min do homem; 1 quartil e 3 quartil(50%);)
+  tapply(distancia,condutor,summary)# Para interpretar os valores do boxplot (qt + proximo a media e a mediana estao, mais normais estao 
+  #(assimetria); o min da mulher e menos de metade do min do homem; 1 quartil e 3 quartil(50%);)
   
   #double boxplot consumo
-  boxplot(consumo ~ condutor, main = "Comparacao do consumo por condutor", ylab="consumo medio de litros aos 100km", xlab="Condutor", names=c("condutor A","condutor B"),col=c("purple","skyblue"))
+  boxplot(consumo ~ condutor, main = "Comparacao do consumo por condutor", ylab="consumo medio de litros aos 100km", 
+  xlab="Condutor", names=c("condutor A","condutor B"),col=c("purple","skyblue"))
   legend("topright", legend = c("Condutor A","Condutor B"), fill = c("purple","skyblue"), bty = "n")
   IQR(consumo)
   tapply(consumo,condutor,summary)
   
   #double boxplot distancia - avaliacao
-  boxplot(distancia ~ avaliacao, main = "Comparacao da distancia por avaliacao", ylab="Distancia (Km)", xlab="Avaliacao", names=c("1","2","3","4"),col=c("purple","skyblue","darkseagreen","coral"))
-  legend("topright", legend = c("1 - desempenho muito bom", "2 - desempenho bom", "3 - desempenho fraco","4 - desempenho muito fraco"), fill = c("purple","skyblue","darkseagreen","coral"), bty = "n")
+  boxplot(distancia ~ avaliacao, main = "Comparacao da distancia por avaliacao", ylab="Distancia (Km)", xlab="Avaliacao", 
+  names=c("1","2","3","4"),col=c("purple","skyblue","darkseagreen","coral"))
+  legend("topright", legend = c("1 - desempenho muito bom", "2 - desempenho bom", "3 - desempenho fraco","4 - desempenho muito fraco"),
+  fill = c("purple","skyblue","darkseagreen","coral"), bty = "n")
   IQR(distancia)
   tapply(distancia,avaliacao,summary)
   
   #double boxplot peso - avaliacao
-  boxplot(peso ~ avaliacao, main = "Comparacao do peso por avaliacao", ylab="Peso (Kg)", xlab="Avaliacao", names=c("1","2","3","4"),col=c("purple","skyblue","darkseagreen","coral"))
-  legend("topleft", legend = c("1 - desempenho muito bom", "2 - desempenho bom", "3 - desempenho fraco","4 - desempenho muito fraco"), fill = c("purple","skyblue","darkseagreen","coral"), bty = "n")
+  boxplot(peso ~ avaliacao, main = "Comparacao do peso por avaliacao", ylab="Peso (Kg)", xlab="Avaliacao", names=c("1","2","3","4"),
+  col=c("purple","skyblue","darkseagreen","coral"))
+  legend("topleft", legend = c("1 - desempenho muito bom", "2 - desempenho bom", "3 - desempenho fraco","4 - desempenho muito fraco"),
+   fill = c("purple","skyblue","darkseagreen","coral"), bty = "n")
   IQR(peso)
   tapply(peso,avaliacao,summary)
   
   #double boxplot consumo - avaliacao
-  boxplot(consumo ~ avaliacao, main = "Comparacao do consumo por avaliacao", ylab="Consumo Medio de Litros aos 100km", xlab="Avaliacao", names=c("1","2","3","4"),col=c("purple","skyblue","darkseagreen","coral"))
-  legend("topleft", legend = c("1 - desempenho muito bom", "2 - desempenho bom", "3 - desempenho fraco","4 - desempenho muito fraco"), fill = c("purple","skyblue","darkseagreen","coral"), bty = "n")
+  boxplot(consumo ~ avaliacao, main = "Comparacao do consumo por avaliacao", ylab="Consumo Medio de Litros aos 100km", xlab="Avaliacao",
+   names=c("1","2","3","4"),col=c("purple","skyblue","darkseagreen","coral"))
+  legend("topleft", legend = c("1 - desempenho muito bom", "2 - desempenho bom", "3 - desempenho fraco","4 - desempenho muito fraco"),
+   fill = c("purple","skyblue","darkseagreen","coral"), bty = "n")
   IQR(consumo)
   tapply(consumo,avaliacao,summary)
   
@@ -177,10 +187,9 @@ library(plotrix)
   ###### Estatistica INDUTIVA    
   # PREVISAO: Regressao linear entre peso e distancia
   
-  plot(peso,distancia , pch = 19, col = "lightslateblue", main = "Distancia vs Peso", xlab = "Peso (Kg)", ylab = "Distancia (Km)")
-  # relacao da var do peso e distancia (se existe correlacao forte ou fraca)
-  # existe uma relacao de correlacao forte e positiva entre as variaveis "peso" e "distancia"
-  cor(peso, distancia) # r= -0.9772903 , esta muito proximo de -1 por isso existe uma correlacao forte e negativa
+  plot(peso,distancia , pch = 19, col = "lightslateblue", main = "Distancia vs Peso",
+   xlab = "Peso (Kg)", ylab = "Distancia (Km)")
+  cor(peso, distancia) # r= -0.9772903
   cor(peso, distancia)^2
   
   model = lm(distancia ~ peso) #linear simples #dependente~independente # dependente - Y | Independente - X
@@ -202,10 +211,9 @@ library(plotrix)
   378.5198-0.1138*2000
   
   
-  plot(distancia,consumo , pch = 19, col = "lightslateblue", main = "Distancia vs Consumo", xlab = "Distancia (Km)", ylab = "Consumo Médio (l/100Km)")
-  # relacao da var do peso e distancia (se existe correlacao forte ou fraca)
-  # existe uma relacao de correlacao forte e positiva entre as variaveis "peso" e "distancia"
-  cor(distancia, consumo) # r= -0.8343691 , esta muito proximo de -1 por isso existe uma correlacao forte e negativa
+  plot(distancia,consumo , pch = 19, col = "lightslateblue", main = "Distancia vs Consumo", 
+  xlab = "Distancia (Km)",ylab = "Consumo Medio (l/100Km)")
+  cor(distancia, consumo) # r= -0.8343691
   cor(distancia, consumo)^2 # r^2 = 0.6961718
   
 
@@ -217,10 +225,9 @@ library(plotrix)
   
   
   
-  plot(peso,consumo , pch = 19, col = "lightslateblue", main = "Peso vs Consumo", xlab = "Peso (Kg)", ylab = "Consumo Médio (l/100Km)")
-  # relacao da var do peso e distancia (se existe correlacao forte ou fraca)
-  # existe uma relacao de correlacao forte e positiva entre as variaveis "peso" e "distancia"
-  cor(peso, consumo) # r= -0.8343691 , esta muito proximo de -1 por isso existe uma correlacao forte e negativa
+  plot(peso,consumo , pch = 19, col = "lightslateblue", main = "Peso vs Consumo",
+  xlab = "Peso (Kg)", ylab = "Consumo Medio (l/100Km)")
+  cor(peso, consumo) # r= -0.8343691
   cor(peso, consumo)^2 # r^2 = 0.6961718
   
   

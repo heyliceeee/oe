@@ -36,6 +36,10 @@ table=cbind(condutor, peso, distancia, consumo, avaliacao)
 table #mostra tabela
 summary(table)
 
+tabelaPD=cbind(peso, distancia)
+summary(tabelaPD)
+
+
 #tabelas freq aboslutas e relativas
 table(condutor) #nominal (circular, barras)
 table(peso) #continua (histograma, diagrama de extremos e quartis)
@@ -44,73 +48,135 @@ table(consumo) #continua
 table(avaliacao) #ordinal (barras, diagrama de extremos e quartis)
 
 #Tabelas
-f_g<-table(condutor) #fa do condutor
-f_g #n de elementos de cada grupo (fa do condutor)
-fr_g<-prop.table(f_g) #tabelas de forma proporcional da fr da fa do condutor 
-fr_g #fr por condutor
+ #Freq. Absoluta de condutor
+ f_g<-table(condutor)
+ f_g
+ 
+ #Freq. Relativa de condutor
+ fr_g<-prop.table(f_g)
+ fr_g
 
-#circular para freq absoluta ou freq relativa
-#Representacoes Graficas
-nomes_c<-c("condutor A","condutor B") #legendas
-cores<-c("pink","skyblue") #cores do grafico
-rotulo<-paste(nomes_c,"(",paste(f_g),")",sep=" ") #dados (legendas, n. elementos)
-pie(f_g, main="Numero de Testes realizados por condutor",labels=rotulo,col=cores) #grafico circular
+  # -------------------------------------------------------------------------------------------- #
+ 
+ # Representaçoes graficas
+
+ #Grafico circular
+
+nomes_c<-c("Condutor A", "Condutor B") #legendas
+  cores<-c("purple","skyblue") #cores do grafico
+  rotulo<-paste(nomes_c,"(",paste(f_g),")",sep=" ") #dados (legendas, n. elementos)
+  pie(f_g, main="Numero de testes por condutor",labels=rotulo,col=cores) #grafico circular
 
 nomes_c<-c("condutor A","condutor B") #legendas
-cores<-c("pink","skyblue") #cores do grafico
-rotulo<-paste(nomes_c,"(",paste(round(100*fr_g),"%"),")",sep=" ") #dados (legendas, n. elementos)
-pie(fr_g, main="Percentagem de Testes realizados por condutor",labels=rotulo,col=cores) #grafico circular
+  cores<-c("pink","skyblue") #cores do grafico
+  rotulo<-paste(nomes_c,"(",paste(round(100*fr_g),"%"),")",sep=" ") #dados (legendas, n. elementos)
+  pie(fr_g, main="Percentagem de Testes realizados por condutor",labels=rotulo,col=cores) #grafico circular
+
+  #Grafico circular 3D - Numero de testes
+  nomes_c<-c("condutor A","condutor B") #legendas
+  cores<-c("pink","skyblue") #cores do grafico
+  rotulo<-paste(nomes_c,"(",paste(f_g),")",sep=" ") #dados (legendas, n. elementos)
+  pie3D(f_g,explode = 0.05,main="Numero de testes por condutor",labels=rotulo,col=cores, labelcex = 1.1) #grafico circular
+
+ #Grafico circular 3D - Percentagem de testes
+  nomes_c<-c("condutor A","condutor B") #legendas
+  cores<-c("pink","skyblue") #cores do grafico
+  rotulo<-paste(nomes_c,"(",paste(round(100*fr_g),"%"),")",sep=" ") #dados (legendas, n. elementos)
+  pie3D(fr_g,explode = 0.05,main="Percentagem de Testes realizados por condutor",labels=rotulo,col=cores, labelcex = 1.1) #grafico circular
+
+  # -------------------------------------------------------------------------------------------- #
 
 #Grafico Barras (freq absoluta ou freq relativa) (vari�veis nominal e ordenal; Nao serve para var. cont�nuas!!!!)
-barplot(f_g,main="Numero de Testes realizados por condutor",xlab="condutor",ylab="n de testes",col=c("pink", "skyblue"), ylim=c(0,15)) #ylim(limites de y) #fa de cada condutor
-barplot(fr_g,main="Percentagem de Testes por condutor",xlab="condutor",ylab="n de testes",col=c("pink", "skyblue"), ylim=c(0,1)) #ylim(limites de y) #fr de cada condutor
-#text(locator(n=2), paste(round(fr_g, 2))) #introduzir texto no grafico
 
+#Grafico de barras Numero de Testes por condutor
+  barplot(f_g,main="Numero de Testes por condutor",xlab="Condutor", names.arg = c("A","B") ,ylab="N. de Testes",col=c("purple","skyblue"), ylim=c(0,21), xlim=c(0,4)) #ylim(limites de y) #fr de cada condutor
+  legend("topright", legend = c("Condutor A", "Condutor B"), fill = c("purple","skyblue"), bty = "n")
+  text(locator(n=2), paste(round(f_g,2)))
+
+#Grafico de barras Percentagem de Testes por condutor
+  barplot(fr_g,main="Pertagem de Testes por condutor",xlab="Condutor",ylab="Percentagem de Testes", names.arg = c("A","B"), col=c("purple","skyblue"), ylim=c(0,1), xlim=c(0,4)) #ylim(limites de y) #fr de cada condutor
+  legend("topright", legend = c("Condutor A", "Condutor B"), fill = c("purple","skyblue"), bty = "n")
+  text(locator(n=2), paste(round(fr_g,2)))
+
+  # -------------------------------------------------------------------------------------------- #
 
 #Histograma
-h<-hist(distancia,main="Distribuicao dos testes por distancia, com 10 litros de gasoleo",xlab="distancia",ylab="Numero de testes", col="skyblue",xlim=c(0,300),ylim=c(0,10))
-h
-summary(distancia)
+ #Numero de testes por Peso
+  hp=hist(peso, main="Numero de Testes por Peso", xlab="Peso (Kg)",ylab="N. de Testes" ,col = "skyblue", ylim = c(0,8))
+  legend("topright", legend = c("Testes por Peso"), fill = c("skyblue"), bty = "n")
+  summary(peso)  
+  freq_abs=hp$counts
+  text(locator(6), paste(round(freq_abs)))
 
-h<-hist(peso,main="Distribuicao dos testes por peso",xlab="peso",ylab="Numero de testes",col="skyblue",xlim=c(0,2500),ylim=c(0,10))
-h
-summary(peso)
+ #Numero de testes por Distancia
+  hd=hist(distancia,main="Numero de Testes por Distancia", xlab="Distancia (Km)",ylab="N. de Testes",col = "skyblue", ylim = c(0,10))
+  legend("topright", legend = c("Testes por Distancia"), fill = c("skyblue"), bty = "n")
+  summary(distancia)
+  freq_rel=hd$counts
+  text(locator(n=7), paste(round(freq_rel)))
 
-#freq_rel=h$counts/21 #freq relativa
-#text(locator(n=7), paste(round(freq_rel, 2))) #introduzir texto no grafico
+  # -------------------------------------------------------------------------------------------- #
+
+#boxplots
+
+#Boxplot Peso + Dif Inter-quartis
+  boxplot(peso, main = "Distribuicao do Peso", ylab="Peso (Kg)",col=c("mediumspringgreen"))
+    summary(peso) 
+  IQR(peso) #da intervalo interquartil (no peso, a diferenca entre o 1 qartil e o 3 quartil sao 367)
+
+#Boxplot Distancia + Dif Inter-quartis
+  boxplot(distancia, main = "Distribuicao da distancia", ylab="Distancia (Km)",col=c("lightgoldenrod1"))
+  summary(distancia) 
+  IQR(distancia) #da intervalo interquartil (na distancia, a diferenca entre o 1 qartil e o 3 quartil sao 37.4)
+
+#Boxplot Peso por condutor + Summary
+  boxplot(peso ~ condutor ,main = "Comparacao do Peso do veiculo por condutor", ylab="Peso (Kg)", xlab="Condutor", names=c("A","B"),
+  col=c("purple","skyblue"), xlim=c(0,4))
+  legend("topright", legend = c("Condutor A","Condutor B"), fill = c("purple","skyblue"), bty = "n")
+  tapply(peso,condutor,summary)# Para interpretar os valores do boxplot (qt + proximo a media e a mediana estao, mais normais estao (assimetria); o min da mulher e menos de metade do min do homem; 1 quartil e 3 quartil(50%);)
 
 
-#caixa de bigodes multiplo (comparar 2 v�riaveis (continua - nominal ou ordinal))
-boxplot(distancia ~ condutor, main = "Comparacao da distancia por condutor", ylab="distancia em kms", xlab="", 
-names=c("condutor A","condutor B"),col=c("pink","blue"))
-IQR(distancia) #da intervalo interquartil
-tapply(distancia,condutor,summary)
-
-boxplot(peso ~ condutor, main = "Comparacao do peso por condutor", ylab="peso em kg", 
-xlab="", names=c("condutor A","condutor B"),col=c("pink","blue"))
-IQR(peso)
-tapply(peso,condutor,summary)
-
-boxplot(consumo ~ condutor, main = "Comparacao do consumo por condutor", ylab="consumo medio de litros aos 100km", 
-xlab="", names=c("condutor A","condutor B"),col=c("pink","blue"))
-IQR(consumo)
-tapply(consumo,condutor,summary)
-
-
-boxplot(distancia ~ avaliacao, main = "Comparacao da distancia por avaliacao", 
-ylab="distancia em kms", xlab="", names=c("1","2","3","4"),col=c("pink","blue"))
-IQR(distancia)
-tapply(distancia,avaliacao,summary)
-
-boxplot(peso ~ avaliacao, main = "Comparacao do peso por avaliacao", 
-ylab="peso em kg", xlab="", names=c("1","2","3","4"),col=c("pink","blue"))
-IQR(peso)
-tapply(peso,avaliacao,summary)
-
-boxplot(consumo ~ avaliacao, main = "Comparacao do consumo por avaliacao", 
-ylab="consumo medio de litros aos 100km", xlab="", names=c("1","2","3","4"),col=c("pink","blue"))
-IQR(consumo)
-tapply(consumo,avaliacao,summary)
+#double boxplot distancia
+  boxplot(distancia ~ condutor, main = "Comparacao da Distancia por condutor", ylab="Distancia (Km)", xlab="Condutor", names=c("A","B"),
+  col=c("purple","skyblue"))
+  #segundo esta amostra o genero feminino tem o ordenado atual menor que dos homens
+  legend("topright", legend = c("Condutor A","Condutor B"), fill = c("purple","skyblue"), bty = "n")
+  IQR(distancia) #da intervalo interquartil (no ordenado atual, a diferenca entre o 1 qartil e o 3 quartil sao 798.85)
+  tapply(distancia,condutor,summary)# Para interpretar os valores do boxplot (qt + proximo a media e a mediana estao, mais normais estao 
+  #(assimetria); o min da mulher e menos de metade do min do homem; 1 quartil e 3 quartil(50%);)
+  
+  #double boxplot consumo
+  boxplot(consumo ~ condutor, main = "Comparacao do consumo por condutor", ylab="consumo medio de litros aos 100km", 
+  xlab="Condutor", names=c("condutor A","condutor B"),col=c("purple","skyblue"))
+  legend("topright", legend = c("Condutor A","Condutor B"), fill = c("purple","skyblue"), bty = "n")
+  IQR(consumo)
+  tapply(consumo,condutor,summary)
+  
+  #double boxplot distancia - avaliacao
+  boxplot(distancia ~ avaliacao, main = "Comparacao da distancia por avaliacao", ylab="Distancia (Km)", xlab="Avaliacao", 
+  names=c("1","2","3","4"),col=c("purple","skyblue","darkseagreen","coral"))
+  legend("topright", legend = c("1 - desempenho muito bom", "2 - desempenho bom", "3 - desempenho fraco","4 - desempenho muito fraco"),
+  fill = c("purple","skyblue","darkseagreen","coral"), bty = "n")
+  IQR(distancia)
+  tapply(distancia,avaliacao,summary)
+  
+  #double boxplot peso - avaliacao
+  boxplot(peso ~ avaliacao, main = "Comparacao do peso por avaliacao", ylab="Peso (Kg)", xlab="Avaliacao", names=c("1","2","3","4"),
+  col=c("purple","skyblue","darkseagreen","coral"))
+  legend("topleft", legend = c("1 - desempenho muito bom", "2 - desempenho bom", "3 - desempenho fraco","4 - desempenho muito fraco"),
+   fill = c("purple","skyblue","darkseagreen","coral"), bty = "n")
+  IQR(peso)
+  tapply(peso,avaliacao,summary)
+  
+  #double boxplot consumo - avaliacao
+  boxplot(consumo ~ avaliacao, main = "Comparacao do consumo por avaliacao", ylab="Consumo Medio de Litros aos 100km", xlab="Avaliacao",
+   names=c("1","2","3","4"),col=c("purple","skyblue","darkseagreen","coral"))
+  legend("topleft", legend = c("1 - desempenho muito bom", "2 - desempenho bom", "3 - desempenho fraco","4 - desempenho muito fraco"),
+   fill = c("purple","skyblue","darkseagreen","coral"), bty = "n")
+  IQR(consumo)
+  tapply(consumo,avaliacao,summary)
+  
+  # -------------------------------------------------------------------------------------------- #
 
 
 
@@ -119,8 +185,7 @@ tapply(consumo,avaliacao,summary)
 #---------------- distancia vai depender do peso do automovel e do condutor ----------------#
 
 # PREVISAO: Regressao linear entre distancia e peso
-plot(peso, distancia, pch = 1, cex = 1.3, col = "blue", main = "peso vs distancia", xlab = "peso", ylab = "distancia")
-# existe uma relacao de correlacao fraca e negativa entre as variaveis "peso" e "distancia"
+plot(peso,distancia , pch = 19, col = "lightslateblue", main = "Distancia vs Peso", xlab = "Peso (Kg)", ylab = "Distancia (Km)")
 cor(peso,distancia) # r= -0.9772903, esta muito longe de 1 por isso existe uma correlacao fraca e negativa
 
 
@@ -129,7 +194,7 @@ cor(peso,distancia) # r= -0.9772903, esta muito longe de 1 por isso existe uma c
 # ^peso = 3253.986 + -8.395 * distancia (por cada km q se acrescenta � distancia, acrescenta -8.395kg no peso)
 
 
-model = lm(peso ~ distancia) #linear simples #dependente~independente
+  model = lm(distancia ~ peso) #linear simples #dependente~independente
 model #peso=3253.986+-8.395*distancia
 abline(model, col="red") #desenhar a reta de regressao linear simples
 summary(model) #sumario com as estimativas dos coeficientes
@@ -150,16 +215,14 @@ cor(distancia,peso)^2  # r^2 = 0.9550963  (95,50% da variancia de y e explicada 
 
 #---------------- consumo vai depender da distancia ----------------#
 # PREVISAO: Regressao linear entre consumo e distancia
-plot(distancia, consumo, pch = 1, cex = 1.3, col = "blue", main = "Distancia vs Consumo", xlab = "distancia (km)", ylab = "consumo medio (l/100km)")
-# existe uma relacao de correlacao moderada e negativa entre as variaveis "distancia" e "consumo"
+plot(distancia,consumo , pch = 19, col = "lightslateblue", main = "Distancia vs Consumo",  xlab = "Distancia (Km)",ylab = "Consumo Medio (l/100Km)")# existe uma relacao de correlacao moderada e negativa entre as variaveis "distancia" e "consumo"
 cor(distancia,consumo) # r= -0.8343691, esta muito longe de 1 por isso existe uma correlacao moderada e negativa
 
 # y = B0 + B1 * X + erro <- regressao linear simples
 # distancia = B0(=286.61) + B1(=-14.81) * consumo + erro (se o consumo for nulo(zero), a distancia e de km)
 # ^distancia = 286.61 + -14.81 * consumo (por cada litro/100km q se acrescenta ao consumo, acrescenta -14.81km na distancia)
 
-model = lm(distancia ~ consumo) #linear simples #dependente~independente
-predict(model)
+model = lm(consumo ~ distancia) #linear simples #dependente~independente
 model #distancia=286.61+-14.81*consumo
 abline(model, col="red") #desenhar a reta de regressao linear simples
 summary(model) #sumario com as estimativas dos coeficientes
@@ -180,15 +243,14 @@ cor(consumo,distancia)^2  # r^2 = 0.6961718  (69,61% da variancia de y e explica
 
 #---------------- consumo vai depender da peso ----------------#
 # PREVISAO: Regressao linear entre consumo e peso
-plot(peso, consumo, pch = 1, cex = 1.3, col = "blue", main = "Peso vs Consumo", xlab = "peso (kg)", ylab = "consumo medio (l/100km)")
-# existe uma relacao de correlacao moderada e positiva entre as variaveis "peso" e "consumo"
+plot(peso,consumo , pch = 19, col = "lightslateblue", main = "Peso vs Consumo",xlab = "Peso (Kg)", ylab = "Consumo Medio (l/100Km)")# existe uma relacao de correlacao moderada e positiva entre as variaveis "peso" e "consumo"
 cor(peso,consumo) # r= 0.7866102, esta muito longe de 1 por isso existe uma correlacao moderada e positiva
 
 # y = B0 + B1 * X + erro <- regressao linear simples
 # peso = B0(=878.2) + B1(=119.9) * consumo + erro (se o consumo for nulo(zero), o peso e de kg)
 # ^peso = 878.2 + 119.9 * consumo (por cada litro/100km q se acrescenta ao consumo, acrescenta 119.9kg no peso)
 
-model = lm(peso ~ consumo) #linear simples #dependente~independente
+model = lm(consumo ~ peso)  #linear simples #dependente~independente
 model #peso=878.2+119.9 * consumo
 abline(model, col="red") #desenhar a reta de regressao linear simples
 summary(model) #sumario com as estimativas dos coeficientes
