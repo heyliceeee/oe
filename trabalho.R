@@ -186,7 +186,6 @@ nomes_c<-c("condutor A","condutor B") #legendas
 
 # PREVISAO: Regressao linear entre distancia e peso
 plot(peso,distancia , pch = 19, col = "lightslateblue", main = "Distancia vs Peso", xlab = "Peso (Kg)", ylab = "Distancia (Km)")
-cor(peso,distancia) # r= -0.9772903, esta muito longe de 1 por isso existe uma correlacao fraca e negativa
 
 
 # y = B0 + B1 * X + erro <- regressao linear simples
@@ -194,7 +193,7 @@ cor(peso,distancia) # r= -0.9772903, esta muito longe de 1 por isso existe uma c
 # ^peso = 3253.986 + -8.395 * distancia (por cada km q se acrescenta � distancia, acrescenta -8.395kg no peso)
 
 
-  model = lm(distancia ~ peso) #linear simples #dependente~independente
+model = lm(distancia ~ peso) #linear simples #dependente~independente
 model #peso=3253.986+-8.395*distancia
 abline(model, col="red") #desenhar a reta de regressao linear simples
 summary(model) #sumario com as estimativas dos coeficientes
@@ -204,8 +203,8 @@ summary(model) #sumario com as estimativas dos coeficientes
 
 #predict(model) #previsao - valores estimados pela reta para cada valor de x dado
 # coeficiente de correlacao e coeficiente de determinacao, para a qualidade do ajustamento
-cor(distancia,peso) # r= -0.9772903
-cor(distancia,peso)^2  # r^2 = 0.9550963  (95,50% da variancia de y e explicada pela variancia de x)
+cor(peso,distancia) # r= -0.9772903
+cor(peso,distancia)^2  # r^2 = 0.9550963  (95,50% da variancia de y e explicada pela variancia de x)
 
 
 3253.986+-8.395*100 #Estima-se que um automóvel que tivesse distancia de 100km a peso seria 2414.486kg
@@ -216,7 +215,6 @@ cor(distancia,peso)^2  # r^2 = 0.9550963  (95,50% da variancia de y e explicada 
 #---------------- consumo vai depender da distancia ----------------#
 # PREVISAO: Regressao linear entre consumo e distancia
 plot(distancia,consumo , pch = 19, col = "lightslateblue", main = "Distancia vs Consumo",  xlab = "Distancia (Km)",ylab = "Consumo Medio (l/100Km)")# existe uma relacao de correlacao moderada e negativa entre as variaveis "distancia" e "consumo"
-cor(distancia,consumo) # r= -0.8343691, esta muito longe de 1 por isso existe uma correlacao moderada e negativa
 
 # y = B0 + B1 * X + erro <- regressao linear simples
 # distancia = B0(=286.61) + B1(=-14.81) * consumo + erro (se o consumo for nulo(zero), a distancia e de km)
@@ -232,8 +230,8 @@ summary(model) #sumario com as estimativas dos coeficientes
 
 #predict(model) #previsao - valores estimados pela reta para cada valor de x dado
 # coeficiente de correlacao e coeficiente de determinacao, para a qualidade do ajustamento
-cor(consumo,distancia) # r= -0.8343691
-cor(consumo,distancia)^2  # r^2 = 0.6961718  (69,61% da variancia de y e explicada pela variancia de x)
+cor(distancia,consumo) # r= -0.8343691
+cor(distancia,consumo)^2  # r^2 = 0.6961718  (69,61% da variancia de y e explicada pela variancia de x)
 
 
 286.61+-14.81*5 #Estima-se que um automovel que tivesse consumo de 5 litros/100km a distancia seria 212.56km
@@ -244,7 +242,6 @@ cor(consumo,distancia)^2  # r^2 = 0.6961718  (69,61% da variancia de y e explica
 #---------------- consumo vai depender da peso ----------------#
 # PREVISAO: Regressao linear entre consumo e peso
 plot(peso,consumo , pch = 19, col = "lightslateblue", main = "Peso vs Consumo",xlab = "Peso (Kg)", ylab = "Consumo Medio (l/100Km)")# existe uma relacao de correlacao moderada e positiva entre as variaveis "peso" e "consumo"
-cor(peso,consumo) # r= 0.7866102, esta muito longe de 1 por isso existe uma correlacao moderada e positiva
 
 # y = B0 + B1 * X + erro <- regressao linear simples
 # peso = B0(=878.2) + B1(=119.9) * consumo + erro (se o consumo for nulo(zero), o peso e de kg)
@@ -260,8 +257,8 @@ summary(model) #sumario com as estimativas dos coeficientes
 
 #predict(model) #previsao - valores estimados pela reta para cada valor de x dado
 # coeficiente de correlacao e coeficiente de determinacao, para a qualidade do ajustamento
-cor(consumo,peso) # r= 0.7866102
-cor(consumo,peso)^2  # r^2 = 0.6187556 (61,87% da variancia de y e explicada pela variancia de x)
+cor(peso,consumo) # r= 0.7866102
+cor(peso,consumo)^2  # r^2 = 0.6187556 (61,87% da variancia de y e explicada pela variancia de x)
 
 
 878.2+119.9 *5 #Estima-se que um automovel que tivesse consumo de 5 litros/100km o peso seria 1477.7kg
@@ -315,7 +312,7 @@ t.test(consumo,
 
 
 #compare medias entre grupos
-boxplot(distancia ~ condutor, main = "Comparacao da distancia por condutor", ylab="ordenado em kms", xlab="", names=c("condutor A","condutor B"),col=c("pink","blue"))
+boxplot(distancia ~ condutor, main = "Comparacao da Distancia por condutor", ylab="Distancia (Km)", xlab="Condutor", names=c("A","B"), col=c("purple","skyblue"))
 tapply(distancia,condutor,summary)# Para interpretar os valores do boxplot (qt + proximo a media e a mediana estao, mais normais estao (assimetria))
 
 t.test(distancia ~ condutor,
@@ -355,10 +352,7 @@ t.test(model$residuals,
 
 #duas continuas: regressao linear simples
 
-plot(peso, distancia, pch = 1, cex = 1.3, col = "blue", main = "peso vs distancia", xlab = "peso", ylab = "distancia")
-
-cor(peso,distancia) # r= -0.9772903
-
+plot(peso,distancia , pch = 19, col = "lightslateblue", main = "Distancia vs Peso", xlab = "Peso (Kg)", ylab = "Distancia (Km)")
 model = lm(distancia ~ peso) #linear simples #dependente~independente
 predict(model)
 model #ver modelo;peso=378.5198+-0.1138*distancia
