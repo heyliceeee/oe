@@ -58,7 +58,7 @@ pie(f_g, main="Numero de Testes realizados por condutor",labels=rotulo,col=cores
 
 nomes_c<-c("condutor A","condutor B") #legendas
 cores<-c("pink","skyblue") #cores do grafico
-rotulo<-paste(nomes_c,"(",paste(round(100*fr_g), "%"),")",sep=" ") #dados (legendas, n. elementos)
+rotulo<-paste(nomes_c,"(",paste(round(100*fr_g),"%"),")",sep=" ") #dados (legendas, n. elementos)
 pie(fr_g, main="Percentagem de Testes realizados por condutor",labels=rotulo,col=cores) #grafico circular
 
 #Grafico Barras (freq absoluta ou freq relativa) (variï¿½veis nominal e ordenal; Nao serve para var. contï¿½nuas!!!!)
@@ -279,11 +279,11 @@ t.test(consumo ~ condutor,
 
 
 
-#Teste à significâncias dos coeficientes de regressão e de determinação
+#Teste ï¿½ significï¿½ncias dos coeficientes de regressï¿½o e de determinaï¿½ï¿½o
 summary(model)
 
 
-# Teste à normalidade dos erros
+# Teste ï¿½ normalidade dos erros
 shapiro.test(model$residuals)
 t.test(model$residuals, 
        alternative="two.sided",
