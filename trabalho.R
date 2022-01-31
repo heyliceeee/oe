@@ -58,7 +58,7 @@ pie(f_g, main="Numero de Testes realizados por condutor",labels=rotulo,col=cores
 
 nomes_c<-c("condutor A","condutor B") #legendas
 cores<-c("pink","skyblue") #cores do grafico
-rotulo<-paste(nomes_c,"(",paste(fr_g),")",sep=" ") #dados (legendas, n. elementos)
+rotulo<-paste(nomes_c,"(",paste(round(100*fr_g),"%"),")",sep=" ") #dados (legendas, n. elementos)
 pie(fr_g, main="Percentagem de Testes realizados por condutor",labels=rotulo,col=cores) #grafico circular
 
 #Grafico Barras (freq absoluta ou freq relativa) (vari�veis nominal e ordenal; Nao serve para var. cont�nuas!!!!)
