@@ -142,7 +142,7 @@ library(plotrix)
   tapply(peso,condutor,summary)# Para interpretar os valores do boxplot (qt + proximo a media e a mediana estao, mais normais estao (assimetria); o min da mulher e menos de metade do min do homem; 1 quartil e 3 quartil(50%);)
   
   #double boxplot distancia
-  boxplot(distancia ~ condutor, main = "Comparacao do ordenado atual por genero", ylab="Distancia (Km)", xlab="Condutor", names=c("A","B"),col=c("purple","skyblue"))
+  boxplot(distancia ~ condutor, main = "Comparacao da Distancia por condutor", ylab="Distancia (Km)", xlab="Condutor", names=c("A","B"),col=c("purple","skyblue"))
   #segundo esta amostra o genero feminino tem o ordenado atual menor que dos homens
   legend("topright", legend = c("Condutor A","Condutor B"), fill = c("purple","skyblue"), bty = "n")
   IQR(distancia) #da intervalo interquartil (no ordenado atual, a diferenca entre o 1 qartil e o 3 quartil sao 798.85)
