@@ -58,7 +58,7 @@ pie(f_g, main="Numero de Testes realizados por condutor",labels=rotulo,col=cores
 
 nomes_c<-c("condutor A","condutor B") #legendas
 cores<-c("pink","skyblue") #cores do grafico
-rotulo<-paste(nomes_c,"(",paste(fr_g),")",sep=" ") #dados (legendas, n. elementos)
+rotulo<-paste(nomes_c,"(",paste(round(100*fr_g), "%"),")",sep=" ") #dados (legendas, n. elementos)
 pie(fr_g, main="Percentagem de Testes realizados por condutor",labels=rotulo,col=cores) #grafico circular
 
 #Grafico Barras (freq absoluta ou freq relativa) (variï¿½veis nominal e ordenal; Nao serve para var. contï¿½nuas!!!!)
@@ -91,26 +91,30 @@ xlab="", names=c("condutor A","condutor B"),col=c("pink","blue"))
 IQR(peso)
 tapply(peso,condutor,summary)
 
-boxplot(consumo ~ condutor, main = "Comparacao do consumo por condutor", ylab="consumo medio de litros aos 100km", xlab="", names=c("condutor A","condutor B"),col=c("pink","blue"))
+boxplot(consumo ~ condutor, main = "Comparacao do consumo por condutor", ylab="consumo medio de litros aos 100km", 
+xlab="", names=c("condutor A","condutor B"),col=c("pink","blue"))
 IQR(consumo)
 tapply(consumo,condutor,summary)
 
 
-boxplot(distancia ~ avaliacao, main = "Comparacao da distancia por avaliacao", ylab="distancia em kms", xlab="", names=c("1","2","3","4"),col=c("pink","blue"))
+boxplot(distancia ~ avaliacao, main = "Comparacao da distancia por avaliacao", 
+ylab="distancia em kms", xlab="", names=c("1","2","3","4"),col=c("pink","blue"))
 IQR(distancia)
 tapply(distancia,avaliacao,summary)
 
-boxplot(peso ~ avaliacao, main = "Comparacao do peso por avaliacao", ylab="peso em kg", xlab="", names=c("1","2","3","4"),col=c("pink","blue"))
+boxplot(peso ~ avaliacao, main = "Comparacao do peso por avaliacao", 
+ylab="peso em kg", xlab="", names=c("1","2","3","4"),col=c("pink","blue"))
 IQR(peso)
 tapply(peso,avaliacao,summary)
 
-boxplot(consumo ~ avaliacao, main = "Comparacao do consumo por avaliacao", ylab="consumo medio de litros aos 100km", xlab="", names=c("1","2","3","4"),col=c("pink","blue"))
+boxplot(consumo ~ avaliacao, main = "Comparacao do consumo por avaliacao", 
+ylab="consumo medio de litros aos 100km", xlab="", names=c("1","2","3","4"),col=c("pink","blue"))
 IQR(consumo)
 tapply(consumo,avaliacao,summary)
 
 
 
-#comparar 2 variï¿½veis continuas
+#comparar 2 variaveis continuas
 
 #---------------- distancia vai depender do peso do automovel e do condutor ----------------#
 
@@ -126,17 +130,81 @@ cor(peso,distancia) # r= -0.9772903, esta muito longe de 1 por isso existe uma c
 
 
 model = lm(peso ~ distancia) #linear simples #dependente~independente
-model #ver modelo;peso=3253.986+-8.395*distancia
-abline(model, col="red") #desenhar a reta de regressao linear simples #intercept(ordenada da origem); a distancia vai depender do peso do automovel e do condutor
-summary(model) # sumario com as estimativas dos coeficientes, p-value e r-quadrado
+model #peso=3253.986+-8.395*distancia
+abline(model, col="red") #desenhar a reta de regressao linear simples
+summary(model) #sumario com as estimativas dos coeficientes
 
 #residuals(erros do modelo do y = ... + erro)
 #
 
 #predict(model) #previsao - valores estimados pela reta para cada valor de x dado
 # coeficiente de correlacao e coeficiente de determinacao, para a qualidade do ajustamento
-cor(peso,distancia) # r= -0.9772903
-cor(peso,distancia)^2  # r^2 = 0.9550963  (95,50% da variancia de y e explicada pela variancia de x)
+cor(distancia,peso) # r= -0.9772903
+cor(distancia,peso)^2  # r^2 = 0.9550963  (95,50% da variancia de y e explicada pela variancia de x)
+
+
+3253.986+-8.395*100 #Estima-se que um automÃ³vel que tivesse distancia de 100km a peso seria 2414.486kg
+3253.986+-8.395*200 #Estima-se que um automÃ³vel que tivesse distancia de 300km a peso seria 1574.986kg
+(100-3253.986)/-8.395 #375.6982km Ã© o distancia estimado para um automÃ³vel que a peso seria 100kg???
+
+
+#---------------- consumo vai depender da distancia ----------------#
+# PREVISAO: Regressao linear entre consumo e distancia
+plot(distancia, consumo, pch = 1, cex = 1.3, col = "blue", main = "Distancia vs Consumo", xlab = "distancia (km)", ylab = "consumo medio (l/100km)")
+# existe uma relacao de correlacao moderada e negativa entre as variaveis "distancia" e "consumo"
+cor(distancia,consumo) # r= -0.8343691, esta muito longe de 1 por isso existe uma correlacao moderada e negativa
+
+# y = B0 + B1 * X + erro <- regressao linear simples
+# distancia = B0(=286.61) + B1(=-14.81) * consumo + erro (se o consumo for nulo(zero), a distancia e de km)
+# ^distancia = 286.61 + -14.81 * consumo (por cada litro/100km q se acrescenta ao consumo, acrescenta -14.81km na distancia)
+
+model = lm(distancia ~ consumo) #linear simples #dependente~independente
+predict(model)
+model #distancia=286.61+-14.81*consumo
+abline(model, col="red") #desenhar a reta de regressao linear simples
+summary(model) #sumario com as estimativas dos coeficientes
+
+#residuals(erros do modelo do y = ... + erro)
+#
+
+#predict(model) #previsao - valores estimados pela reta para cada valor de x dado
+# coeficiente de correlacao e coeficiente de determinacao, para a qualidade do ajustamento
+cor(consumo,distancia) # r= -0.8343691
+cor(consumo,distancia)^2  # r^2 = 0.6961718  (69,61% da variancia de y e explicada pela variancia de x)
+
+
+286.61+-14.81*5 #Estima-se que um automovel que tivesse consumo de 5 litros/100km a distancia seria 212.56km
+286.61+-14.81*8 #Estima-se que um automovel que tivesse consumo de 8 litros/100km  a distancia seria 168.13km
+(5-286.61)/-14.81 # 19.01485 litros/100km e o consumo estimado para um automovel que a distancia seria 5km
+
+
+#---------------- consumo vai depender da peso ----------------#
+# PREVISAO: Regressao linear entre consumo e peso
+plot(peso, consumo, pch = 1, cex = 1.3, col = "blue", main = "Peso vs Consumo", xlab = "peso (kg)", ylab = "consumo medio (l/100km)")
+# existe uma relacao de correlacao moderada e positiva entre as variaveis "peso" e "consumo"
+cor(peso,consumo) # r= 0.7866102, esta muito longe de 1 por isso existe uma correlacao moderada e positiva
+
+# y = B0 + B1 * X + erro <- regressao linear simples
+# peso = B0(=878.2) + B1(=119.9) * consumo + erro (se o consumo for nulo(zero), o peso e de kg)
+# ^peso = 878.2 + 119.9 * consumo (por cada litro/100km q se acrescenta ao consumo, acrescenta 119.9kg no peso)
+
+model = lm(peso ~ consumo) #linear simples #dependente~independente
+model #peso=878.2+119.9 * consumo
+abline(model, col="red") #desenhar a reta de regressao linear simples
+summary(model) #sumario com as estimativas dos coeficientes
+
+#residuals(erros do modelo do y = ... + erro)
+#
+
+#predict(model) #previsao - valores estimados pela reta para cada valor de x dado
+# coeficiente de correlacao e coeficiente de determinacao, para a qualidade do ajustamento
+cor(consumo,peso) # r= 0.7866102
+cor(consumo,peso)^2  # r^2 = 0.6187556 (61,87% da variancia de y e explicada pela variancia de x)
+
+
+878.2+119.9 *5 #Estima-se que um automovel que tivesse consumo de 5 litros/100km o peso seria 1477.7kg
+878.2+119.9 *8 #Estima-se que um automovel que tivesse consumo de 8 litros/100km o peso seria 1837.4kg
+(5-878.2)/119.9 # -7.282736 litros/100km e o consumo estimado para um automovel que o peso seria 5kg
 
 
 ###### Estatï¿½stica INDUTIVA
@@ -144,26 +212,44 @@ cor(peso,distancia)^2  # r^2 = 0.9550963  (95,50% da variancia de y e explicada 
 
 
 #exercicio
-#calculo de proporcoes
-dbinom(8, 19, 0.49) #P(M=8 em 19, 0.49) = 15.25% (a amostra pode n ser representativa)
+#Cï¿½lculo de proporï¿½ï¿½es:
+dbinom (8, 21, 0.36) #P(condutor B = 8 em 21, 0.36) = 17.35% (a amostra pode n ser representativa)
 
 
 #teste a normalidade
 shapiro.test(peso) #w(estatistica de teste) #como p-value(0.6065) > 0.05, nao rejeita
+shapiro.test(distancia) #w(estatistica de teste) #como p-value(0.9803) > 0.05, nao rejeita
+shapiro.test(consumo) #w(estatistica de teste) #como p-value(0.02075) < 0.05, rejeita
+
 
 
 #t-test a media populacional
 t.test(peso, 
        alternative="two.sided",
-       mu=1703, #media do peso
-       conf.level=0.95) #nivel de confianca(nivel de significancia(100-95=5%) #df(grau de liberdade) #pvalue(valor de erro) #interval: ....(1quantil, 2quantil) #como 1703 esta fora de 1702.619(mean of x)..., entao esta errado
+       mu=1700, #media do peso
+       conf.level=0.95) 
+#nivel de confianca(nivel de significancia(100-95=5%) 
+#df(grau de liberdade) 
+#pvalue(valor de erro) #interval: ....(1quantil, 2quantil) 
+#como 1700 esta dentro de 1702.619(mean of x)..., entao esta certo
 
 
 t.test(distancia, 
        alternative="two.sided",
-       mu=184.8, #media da distancia
-       conf.level=0.95) #nivel de confianca #df(grau de liberdade) #pvalue(valor de erro) #interval: ....(1quantil, 2quantil) #como 184.8 esta fora de 184.8048(mean of x)..., entao esta errado
+       mu=180, #media da distancia
+       conf.level=0.90) 
+#nivel de confianca #df(grau de liberdade) 
+#pvalue(valor de erro) #interval: ....(1quantil, 2quantil) 
+#como 180 esta dentro de 184.8048(mean of x)..., entao esta certo
 
+
+t.test(consumo, 
+       alternative="two.sided",
+       mu=6.3, #media do consumo
+       conf.level=0.90) 
+#nivel de confianca #df(grau de liberdade) 
+#pvalue(valor de erro) #interval: ....(1quantil, 2quantil) 
+#como 6.3 esta dentro de 6.87619(mean of x)..., entao esta certo
 
 
 #compare medias entre grupos
@@ -172,8 +258,37 @@ tapply(distancia,condutor,summary)# Para interpretar os valores do boxplot (qt +
 
 t.test(distancia ~ condutor,
        alternative="two.sided", 
-       conf.level=0.95) #p-value < nivel significancia, ou seja, rejeitamos hipotese nula
-                        #a diferenca entre as medias na populacao e positiva, entao e o grupo 0 (condutor A) com maior distancia
+       conf.level=0.95) 
+#p-value < nivel significancia, ou seja, rejeitamos hipotese nula
+#a diferenca entre as medias na populacao e positiva, entao e o grupo 0 (condutor A) com
+#maior distancia
+
+t.test(peso ~ condutor,
+       alternative="two.sided", 
+       conf.level=0.95) 
+#p-value < nivel significancia, ou seja, nao rejeitamos hipotese nula
+#a diferenca entre as medias na populacao e negativa, entao e o grupo 1 (condutor B) com
+#maior peso
+
+t.test(consumo ~ condutor,
+       alternative="two.sided", 
+       conf.level=0.95) 
+#p-value < nivel significancia, ou seja, nao rejeitamos hipotese nula
+#a diferenca entre as medias na populacao e negativa, entao e o grupo 1 (condutor B) com
+#maior consumo
+
+
+
+#Teste à significâncias dos coeficientes de regressão e de determinação
+summary(model)
+
+
+# Teste à normalidade dos erros
+shapiro.test(model$residuals)
+t.test(model$residuals, 
+       alternative="two.sided",
+       mu=0,
+       conf.level=0.95) #pvalue e maior que nivel de significancia, ou seja, nao rejeito h0
 
 
 #duas continuas: regressao linear simples
@@ -183,6 +298,7 @@ plot(peso, distancia, pch = 1, cex = 1.3, col = "blue", main = "peso vs distanci
 cor(peso,distancia) # r= -0.9772903
 
 model = lm(distancia ~ peso) #linear simples #dependente~independente
+predict(model)
 model #ver modelo;peso=378.5198+-0.1138*distancia
 abline(model, col="red") #desenhar a reta de regressao linear simples #intercept(ordenada da origem); a distancia vai depender do peso do automovel e do condutor
 summary(model) # sumario com as estimativas dos coeficientes, p-value e r-quadrado
@@ -193,11 +309,8 @@ cor(peso,distancia)^2  # r^2 = 0.9550963  (95,50% da variancia de y e explicada 
 
 
 summary(model)
-shapiro.test(model$residuals)
-t.test(model$residuals, 
-       alternative="two.sided",
-       mu=0,
-       conf.level=0.95) #pvalue e maior que nivel de significancia, ou seja, nao rejeito h0
+
+
 
 
 378.5198+-0.1138*2000 #se a peso for 2000kg, entao a distancia e 150.9198km
