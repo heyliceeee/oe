@@ -44,10 +44,10 @@ table(consumo) #continua
 table(avaliacao) #ordinal (barras, diagrama de extremos e quartis)
 
 #Tabelas
-f_g<-table(condutor) #frequencia absoluta do condutor
-f_g #n de elementos de cada grupo (frequencia absoluta do condutor)
-fr_g<-prop.table(f_g) #tabelas de forma proporcional da frequencia relativa da frequencia absoluta do condutor 
-fr_g #frequencia relativa por condutor (condutor A -> 57%; condutor B -> 42%)
+f_g<-table(condutor) #fa do condutor
+f_g #n de elementos de cada grupo (fa do condutor)
+fr_g<-prop.table(f_g) #tabelas de forma proporcional da fr da fa do condutor 
+fr_g #fr por condutor
 
 #circular para freq absoluta ou freq relativa
 #Representacoes Graficas
@@ -72,7 +72,7 @@ h<-hist(distancia,main="Distribuicao dos testes por distancia, com 10 litros de 
 h
 summary(distancia)
 
-h<-hist(peso,main="Distribuicao dos testes por peso",xlab="peso",ylab="Numero de testes", col="skyblue",xlim=c(0,2500),ylim=c(0,10))
+h<-hist(peso,main="Distribuicao dos testes por peso",xlab="peso",ylab="Numero de testes",col="skyblue",xlim=c(0,2500),ylim=c(0,10))
 h
 summary(peso)
 
@@ -81,9 +81,33 @@ summary(peso)
 
 
 #caixa de bigodes multiplo (comparar 2 v�riaveis (continua - nominal ou ordinal))
-boxplot(distancia ~ condutor, main = "Comparacao da distancia por condutor", ylab="ordenado em kms", xlab="", names=c("condutor A","condutor B"),col=c("pink","blue"))
-IQR(distancia) #da intervalo interquartil (na distancia, a diferenca entre o 1 qartil e o 3 quartil sao 37.4)
-tapply(distancia,condutor,summary)# Para interpretar os valores do boxplot (qt + proximo a media e a mediana estao, mais normais estao (assimetria))
+boxplot(distancia ~ condutor, main = "Comparacao da distancia por condutor", ylab="distancia em kms", xlab="", 
+names=c("condutor A","condutor B"),col=c("pink","blue"))
+IQR(distancia) #da intervalo interquartil
+tapply(distancia,condutor,summary)
+
+boxplot(peso ~ condutor, main = "Comparacao do peso por condutor", ylab="peso em kg", 
+xlab="", names=c("condutor A","condutor B"),col=c("pink","blue"))
+IQR(peso)
+tapply(peso,condutor,summary)
+
+boxplot(consumo ~ condutor, main = "Comparacao do consumo por condutor", ylab="consumo medio de litros aos 100km", xlab="", names=c("condutor A","condutor B"),col=c("pink","blue"))
+IQR(consumo)
+tapply(consumo,condutor,summary)
+
+
+boxplot(distancia ~ avaliacao, main = "Comparacao da distancia por avaliacao", ylab="distancia em kms", xlab="", names=c("1","2","3","4"),col=c("pink","blue"))
+IQR(distancia)
+tapply(distancia,avaliacao,summary)
+
+boxplot(peso ~ avaliacao, main = "Comparacao do peso por avaliacao", ylab="peso em kg", xlab="", names=c("1","2","3","4"),col=c("pink","blue"))
+IQR(peso)
+tapply(peso,avaliacao,summary)
+
+boxplot(consumo ~ avaliacao, main = "Comparacao do consumo por avaliacao", ylab="consumo medio de litros aos 100km", xlab="", names=c("1","2","3","4"),col=c("pink","blue"))
+IQR(consumo)
+tapply(consumo,avaliacao,summary)
+
 
 
 #comparar 2 vari�veis continuas
