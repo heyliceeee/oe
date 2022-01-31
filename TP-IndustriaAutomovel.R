@@ -1,3 +1,7 @@
+install.packages(c("plotrix"))
+
+library(plotrix)
+
 #variaveis
 
  teste = c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21)
@@ -48,9 +52,23 @@
   cores<-c("purple","skyblue") #cores do grafico
   rotulo<-paste(nomes_c,"(",paste(f_g),")",sep=" ") #dados (legendas, n. elementos)
   pie(f_g, main="Numero de testes por condutor",labels=rotulo,col=cores) #grafico circular
+
+  nomes_c<-c("condutor A","condutor B") #legendas
+  cores<-c("pink","skyblue") #cores do grafico
+  rotulo<-paste(nomes_c,"(",paste(round(100*fr_g),"%"),")",sep=" ") #dados (legendas, n. elementos)
+  pie(fr_g, main="Percentagem de Testes realizados por condutor",labels=rotulo,col=cores) #grafico circular
   
-  #Gráfico circular 3D
+  #Grafico circular 3D - Numero de testes
+  nomes_c<-c("condutor A","condutor B") #legendas
+  cores<-c("pink","skyblue") #cores do grafico
+  rotulo<-paste(nomes_c,"(",paste(f_g),")",sep=" ") #dados (legendas, n. elementos)
   pie3D(f_g,explode = 0.05,main="Numero de testes por condutor",labels=rotulo,col=cores, labelcex = 1.1) #grafico circular
+  
+  #Grafico circular 3D - Percentagem de testes
+  nomes_c<-c("condutor A","condutor B") #legendas
+  cores<-c("pink","skyblue") #cores do grafico
+  rotulo<-paste(nomes_c,"(",paste(round(100*fr_g),"%"),")",sep=" ") #dados (legendas, n. elementos)
+  pie3D(fr_g,explode = 0.05,main="Percentagem de Testes realizados por condutor",labels=rotulo,col=cores, labelcex = 1.1) #grafico circular
 
   # -------------------------------------------------------------------------------------------- #
   
@@ -110,8 +128,9 @@
   tapply(peso,condutor,summary)# Para interpretar os valores do boxplot (qt + proximo a media e a mediana estao, mais normais estao (assimetria); o min da mulher e menos de metade do min do homem; 1 quartil e 3 quartil(50%);)
   
   #double boxplot distancia
-  boxplot(distancia ~ condutor, main = "ComparaÃ§ao do ordenado atual por genero", ylab="ordenado em euros", xlab="", names=c("A","B"),col=c("pink","blue"))
+  boxplot(distancia ~ condutor, main = "Comparacao do ordenado atual por genero", ylab="Distancia (Km)", xlab="Condutor", names=c("A","B"),col=c("purple","skyblue"))
   #segundo esta amostra o genero feminino tem o ordenado atual menor que dos homens
+  legend("topright", legend = c("Condutor A","Condutor B"), fill = c("purple","skyblue"), bty = "n")
   IQR(distancia) #da intervalo interquartil (no ordenado atual, a diferenca entre o 1 qartil e o 3 quartil sao 798.85)
   tapply(distancia,condutor,summary)# Para interpretar os valores do boxplot (qt + proximo a media e a mediana estao, mais normais estao (assimetria); o min da mulher e menos de metade do min do homem; 1 quartil e 3 quartil(50%);)
   
@@ -120,7 +139,7 @@
   ###### Estatistica INDUTIVA    
   # PREVISAO: Regressao linear entre peso e distancia
   
-  plot(peso,distancia , pch = 19, col = "lightslateblue", main = "Distancia vs Peso", xlab = "Peso", ylab = "Distancia")
+  plot(peso,distancia , pch = 19, col = "lightslateblue", main = "Distancia vs Peso", xlab = "Peso (Kg)", ylab = "Distancia (Km)")
   # relacao da var do peso e distancia (se existe correlacao forte ou fraca)
   # existe uma relacao de correlacao forte e positiva entre as variaveis "peso" e "distancia"
   cor(peso, distancia) # r= -0.9772903 , esta muito proximo de -1 por isso existe uma correlacao forte e negativa
@@ -134,7 +153,7 @@
   #intercept(se o modelo pode ou n ser anulado; tvalue; pvalue(rejeitar ou n rejeitar dependendo do valor de alpha; se for menor rejeita-se a hipotese nula; o intercept(=0.00136) tem um significado pq e diferente de zero))
   #peso(se for menor(=0.00000000000209) rejeita-se a hipotese nula)
   
-  #Residuals -> Erros Distancia de cada um dos pontos à reta
+  #Residuals -> Erros Distancia de cada um dos pontos ï¿½ reta
   
   #Coeficientes -> beta 0 378 Beta 1 -0.11378 * peso
   
